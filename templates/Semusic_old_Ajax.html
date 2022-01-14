@@ -1,0 +1,36 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                    
+          <script type=text/javascript>
+              $(document).ready(function(){
+                  var ids;
+                  $("a#playlist").on("click", function(event){
+                      event.preventDefault()
+                      
+                      ids = $(this).attr("name");
+                      
+                      $.ajax({
+                          type : 'POST',
+                          url : "{{url_for('add_tracks')}}",
+                          contentType: 'application/json;charset=UTF-8',
+                          data : {'data':ids}
+                      }).done(function(data) {
+                          if (data.error) {
+                              $("#error_msg").text(data.error).fadeIn("fast", function() {
+                                  $("#error_msg").delay(2500).fadeOut ();
+                              });
+                              $("#success_msg").hide();
+                          }
+                          else {
+                              $("#success_msg").text(data.msg).fadeIn("fast", function() {
+                                  $("#success_msg").delay(2500).fadeOut ();
+                              });
+                              $("#error_msg").hide();
+                          }
+                      }
+                      
+                      );
+                  });
+              });
+          </script>                 
+          <form>
+          </form>
