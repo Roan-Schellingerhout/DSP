@@ -2,22 +2,20 @@
 <html>
 <body>
 
-<p><strong>Tip:</strong> {{ name }}</p>
+<p id="demo"> {{ name }}</p>
 
 <h2 onclick="showCoords(event)"><img src={{url}} alt="painting" width={{width}} height={{height}} ismap></h2>
 
-
-
-<p id="demo"></p>
-
 <script>
-function showCoords(event) {
-  var x = event.clientX;
-  var y = event.clientY;
-  var coords = "X coords: " + x + ", Y coords: " + y;
-  document.getElementById("demo").innerHTML = coords;
-}
-</script>
+  function showCoords(event) {
+    var x = event.clientX;
+    var y = event.clientY;
+    var coords = x + "," + y;
+    document.getElementById("demo").innerHTML = "You found: {{ name }} | your score is: " + coords;
+  }
+  </script>
+
+
 
 </body>
 </html>
