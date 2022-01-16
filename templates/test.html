@@ -4,46 +4,59 @@
 
 <p id="demo"> {{ name }}</p>
 
-<form method = "POST">
-    <button id="button_painting" value="val" name="button_painting"><img src={{url}} alt="painting" width={{width}} height={{height}} ismap> Hallo</button>
-</form>
 
-<script>
-    $("button").click(function(e) {
-        e.preventDefault();
-        $.ajax({
-            type: "POST",
-            url: "/score",
-            data: {
-                x: event.clientX,
-                y: event.clientY
-            },
-            succes: function(result) {
-                alert('ok');
-            },
-            error: function(result) {
-                alert('error');
-            }
+<a id="painting_click" href="#">
+    <img src={{url}} alt="painting" width={{width}} height={{height}} ismap>
+</a>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                        
+<script type=text/javascript>
+    $(document).ready(function(){
+
+        var clicked;
+
+        $("a#painting_click").on("click", function(event) {
+            event.preventDefault();
+
+            x = event.clientX, 
+            y = event.clientY
+
+            $.ajax({
+                type: "POST",
+                url: "{{url_for('calculate_score')}}",
+                contentType: 'application/json',
+                data: JSON.stringify({x: x, y: y, time: 0})
+            }).done(function(data) {
+                $("#success_msg").text(data.msg).fadeIn("fast", function() {
+                    $("#success_msg").delay(2500).fadeOut ();
+                });
+                $("#error_msg").hide();
+            });
         });
     });
 
 </script>
+<form>
+</form>
+
+<div class="pop-up" id="success_msg" style="display:none;"></div>
 
 </body>
 </html>
 
 
-<!-- <script>
-  function showCoords(event) {
-    var x = event.clientX;
-    var y = event.clientY;
-    var coords = x + "," + y;
-    document.getElementById("demo").innerHTML = "You found: {{ name }} | your score is: " + coords;
-  }
-  </script> -->
+// <!-- <script>
+//   function showCoords(event) {
+//     var x = event.clientX;
+//     var y = event.clientY;
+//     var coords = x + "," + y;
+//     document.getElementById("demo").innerHTML = "You found: {{ name }} | your score is: " + coords;
+//   }
+//   </script> -->
 
-<!-- <p>{{ name }}</p>
+// <!-- <p>{{ name }}</p>
 
-<a href="/score">
-  <img src={{url}} alt="painting" width={{width}} height={{height}} ismap>
-</a> -->
+// <a href="/score">
+//   <img src={{url}} alt="painting" width={{width}} height={{height}} ismap>
+// </a> -->
