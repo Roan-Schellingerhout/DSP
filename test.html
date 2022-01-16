@@ -1,0 +1,52 @@
+  <p>{{ name }}</p>
+
+<a href="/score">
+  <img src={{url}} alt="painting" width={{width}} height={{height}} ismap>
+</a>
+=======
+<p id="demo"> {{ name }}</p>
+
+
+<a id="painting_click" href="#">
+    <img id="painting" src={{url}} alt="painting" width={{width}} height={{height}} ismap>
+</a>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                        
+<script type=text/javascript>
+    $(document).ready(function(){
+
+        var clicked;
+
+        $("a#painting_click").on("click", function(event) {
+            event.preventDefault();
+
+            x = event.clientX, 
+            y = event.clientY
+
+            $.ajax({
+                type: "POST",
+                url: "{{url_for('calculate_score')}}",
+                contentType: 'application/json',
+                data: JSON.stringify({x: x, y: y, time: 0})
+            }).done(function(data) {
+                $("#success_msg").text(data.msg).fadeIn("fast", function() {
+                    $("#success_msg").delay(2500).fadeOut ();
+                });
+                $("#painting").attr("src", data.url);
+                $("#error_msg").hide();
+            });
+        });
+    });
+
+</script>
+
+<button onClick="window.location.reload();">Next Object and Painting</button>
+
+<form>
+</form>
+
+<div class="pop-up" id="success_msg" style="display:none;"></div>
+
+</body>
+</html>
