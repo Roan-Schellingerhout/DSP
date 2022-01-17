@@ -12,24 +12,25 @@
                         
 <script type=text/javascript>
     $(document).ready(function(){
-
-        var clicked;
-
         $("a#painting_click").on("click", function(event) {
             event.preventDefault();
 
-            x = event.clientX, 
-            y = event.clientY
+            x = event.clientX - document.getElementById('painting').offsetLeft; 
+            y = event.clientY - document.getElementById('painting').offsetTop; 
+            unique = Date.now();
+
 
             $.ajax({
                 type: "POST",
                 url: "{{url_for('calculate_score')}}",
                 contentType: 'application/json',
-                data: JSON.stringify({x: x, y: y, time: 0})
+                data: JSON.stringify({x: x, y: y, time: 0,
+                cache: false})
             }).done(function(data) {
                 $("#success_msg").text(data.msg).fadeIn("fast", function() {
                     $("#success_msg").delay(2500).fadeOut ();
                 });
+                $("#painting").attr("src", "");
                 $("#painting").attr("src", data.url);
                 $("#error_msg").hide();
             });
