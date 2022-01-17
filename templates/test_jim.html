@@ -37,8 +37,7 @@
 
   <div class="col-sm-8">
     <a id="painting_click" href="#">
-          <image id="painting" alt="painting" src={{url}} 
-      style="float:left;width:100%;height:100%;object-fit:cover;" ismap>
+      <img id="painting" src={{url}} alt="painting" width={{width}} height={{height}} ismap>
     </a>
   </div>
 
@@ -76,30 +75,28 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
                         
 <script type=text/javascript>
-    $(document).ready(function(){
+  $(document).ready(function(){
+      $("a#painting_click").on("click", function(event) {
+          event.preventDefault();
 
-        var clicked;
+          x = event.clientX - document.getElementById('painting').offsetLeft; 
+          y = event.clientY - document.getElementById('painting').offsetTop; 
 
-        $("a#painting_click").on("click", function(event) {
-            event.preventDefault();
-
-            x = event.clientX, 
-            y = event.clientY
-
-            $.ajax({
-                type: "POST",
-                url: "{{url_for('calculate_score')}}",
-                contentType: 'application/json',
-                data: JSON.stringify({x: x, y: y, time: 0})
-            }).done(function(data) {
-                $("#success_msg").text(data.msg).fadeIn("fast", function() {
-                    $("#success_msg").delay(2500).fadeOut ();
-                });
-                $("#painting").attr("src", data.url);
-                $("#error_msg").hide();
-            });
-        });
-    });
+          $.ajax({
+              type: "POST",
+              url: "{{url_for('calculate_score')}}",
+              contentType: 'application/json',
+              data: JSON.stringify({x: x, y: y, time: 0,
+              cache: false})
+          }).done(function(data) {
+              $("#success_msg").text(data.msg).fadeIn("fast", function() {
+                  $("#success_msg").delay(2500).fadeOut ();
+              });
+              $("#painting").attr("src", data.url);
+              $("#error_msg").hide();
+          });
+      });
+  });
 
 </script>
 
