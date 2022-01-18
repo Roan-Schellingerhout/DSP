@@ -45,16 +45,14 @@
     <div class="col-sm-4 bg-dark text-white">
     <br>
     <div class="row" style="height: 100px;">
-      <div class="col-12 text-center">
-        <p>Find the <u id="object">{{ name }}</u> </p>
+      <div id="obj_find" class="col-12 text-center">
+        <p>Find the <u id="object">{{ name }}</u></p> <p id="rem">({{ total_objects }} objects remaining for this painting)</p> 
       </div>
     </div>
     <br>
     <div class="row" style="height: 100px;" >
       <div id = "score" class="col-12 text-center">
         Score: 0 
-<div class="pop-up" id="success_msg" style="display:none;"></div>
-
       </div>
     </div>
      <br>
@@ -89,13 +87,25 @@
               data: JSON.stringify({x: x, y: y, time: 0,
               cache: false})
           }).done(function(data) {
-              $("#success_msg").text(data.msg).fadeIn("fast", function() {
-                  $("#success_msg").delay(2500).fadeOut ();
-              });
+              document.getElementById("score").innerHTML = "Score: " + data.total_score;
+
+              document.getElementById("score").innerHTML += "<span class='pop-up' id='success_msg' style='color:greenyellow'>" + data.msg + "</span>"
+              $("#success_msg").delay(2500).fadeOut ();
+              
               $("#painting").attr("src", data.url);
-              document.getElementById("score").innerHTML = data.total_score;
-              document.getElementById("object").innerHTML = data.obj;
-              $("#error_msg").hide();
+
+              console.log(data.obj)
+
+              if (data.rem == ""){
+                  document.getElementById("obj_find").innerHTML = "No objects remaining in this painting!";
+                  document.getElementById("rem").innerHTML = ""
+                  document.getElementById("painting_click").attr("style", "pointer-events: none; cursor: default;");
+              }else{
+                  document.getElementById("object").innerHTML = data.obj;
+                  document.getElementById("rem").innerHTML = "(" + data.rem + " objects remaining for this painting)"
+              }
+
+
           });
       });
   });
