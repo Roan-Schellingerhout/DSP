@@ -46,12 +46,12 @@
     <br>
     <div class="row" style="height: 100px;">
       <div class="col-12 text-center">
-        <p id="demo">Find the <u>{{ name }}</u> </p>
+        <p>Find the <u id="object">{{ name }}</u> </p>
       </div>
     </div>
     <br>
     <div class="row" style="height: 100px;" >
-      <div class="col-12 text-center">
+      <div id = "score" class="col-12 text-center">
         Score: 0 
 <div class="pop-up" id="success_msg" style="display:none;"></div>
 
@@ -93,6 +93,8 @@
                   $("#success_msg").delay(2500).fadeOut ();
               });
               $("#painting").attr("src", data.url);
+              document.getElementById("score").innerHTML = data.total_score;
+              document.getElementById("object").innerHTML = data.obj;
               $("#error_msg").hide();
           });
       });
