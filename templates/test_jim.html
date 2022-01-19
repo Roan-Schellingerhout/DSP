@@ -36,7 +36,7 @@
 
 
   <div class="col-sm-8">
-    <a id="painting_click" href="#">
+    <a style="pointer-events:auto; cursor:crosshair;" id="painting_click" href="#">
       <img id="painting" src={{url}} alt="painting" width={{width}} height={{height}} ismap>
     </a>
   </div>
@@ -76,6 +76,7 @@
   $(document).ready(function(){
       $("a#painting_click").on("click", function(event) {
           event.preventDefault();
+          var me = this;
 
           x = event.clientX - document.getElementById('painting').offsetLeft; 
           y = event.clientY - document.getElementById('painting').offsetTop; 
@@ -90,16 +91,13 @@
               document.getElementById("score").innerHTML = "Score: " + data.total_score;
 
               document.getElementById("score").innerHTML += "<span class='pop-up' id='success_msg' style='color:greenyellow'>" + data.msg + "</span>"
-              $("#success_msg").delay(2500).fadeOut ();
+              $("#success_msg").delay(2500).fadeOut();
               
               $("#painting").attr("src", data.url);
 
-              console.log(data.obj)
-
-              if (data.rem == ""){
+              if (data.obj == ""){
                   document.getElementById("obj_find").innerHTML = "No objects remaining in this painting!";
-                  document.getElementById("rem").innerHTML = ""
-                  document.getElementById("painting_click").attr("style", "pointer-events: none; cursor: default;");
+                  $(me).css({"pointer-events": "none", "cursor": "default"});
               }else{
                   document.getElementById("object").innerHTML = data.obj;
                   document.getElementById("rem").innerHTML = "(" + data.rem + " objects remaining for this painting)"
