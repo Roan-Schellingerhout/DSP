@@ -63,7 +63,7 @@
     </div>
      <br>
     <div class="row" style="height: 100px;">
-      <button onClick="window.location.reload();" type="button" class="btn btn-success">Object not present</button>
+      <button id="no" type="button" class="btn btn-success">Object not present</button>
     </div>
      <br>
   </div>
@@ -111,6 +111,39 @@
   });
 
 </script>
+
+<script type=text/javascript>
+  $(document).ready(function(){
+      $("a#no_click").on("click", function(event) {
+          event.preventDefault();
+          var me = this;
+
+          $.ajax({
+              type: "POST",
+              url: "{{url_for('no_object')}}",
+              contentType: 'application/json',
+          }).done(function(data) {
+              document.getElementById("score").innerHTML = "Score: " + data.total_score;
+
+              document.getElementById("score").innerHTML += "<span class='pop-up' id='success_msg' style='color:greenyellow'>" + data.msg + "</span>"
+              $("#success_msg").delay(2500).fadeOut();
+
+              if (data.obj == ""){
+                  document.getElementById("obj_find").innerHTML = "No objects remaining in this painting!";
+                  $(me).css({"pointer-events": "none", "cursor": "default"});
+              }else{
+                  document.getElementById("object").innerHTML = data.obj;
+                  document.getElementById("rem").innerHTML = "(" + data.rem + " objects remaining for this painting)"
+              }
+
+
+          });
+      });
+  });
+
+</script>
+
+
 
 <form>
 </form>
