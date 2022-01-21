@@ -63,7 +63,7 @@
     </div>
      <br>
     <div class="row" style="height: 100px;">
-      <button id="no" type="button" class="btn btn-success">Object not present</button>
+      <button id="no_object" type="button" class="btn btn-success">Object not present</button>
     </div>
      <br>
   </div>
@@ -114,7 +114,7 @@
 
 <script type=text/javascript>
   $(document).ready(function(){
-      $("a#no_click").on("click", function(event) {
+      $("#no_button").on("click", function(event) {
           event.preventDefault();
           var me = this;
 
@@ -125,7 +125,7 @@
           }).done(function(data) {
               document.getElementById("score").innerHTML = "Score: " + data.total_score;
 
-              document.getElementById("score").innerHTML += "<span class='pop-up' id='success_msg' style='color:greenyellow'>" + data.msg + "</span>"
+              document.getElementById("score").innerHTML += "<span class='pop-up' id='success_msg' style='color:red'>" + data.msg + "</span>"
               $("#success_msg").delay(2500).fadeOut();
 
               if (data.obj == ""){
