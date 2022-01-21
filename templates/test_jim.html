@@ -114,19 +114,20 @@
 
 <script type=text/javascript>
   $(document).ready(function(){
-      $("#no_button").on("click", function(event) {
-          event.preventDefault();
-          var me = this;
-
+      $("#no_object").on("click", function(event) {
+          
           $.ajax({
               type: "POST",
               url: "{{url_for('no_object')}}",
               contentType: 'application/json',
+              data: {}
           }).done(function(data) {
               document.getElementById("score").innerHTML = "Score: " + data.total_score;
+              document.getElementById("score").innerHTML += "<span class='pop-up' id='notif' style='color:red'>" + data.msg1 + "</span>"
+              document.getElementById("score").innerHTML += "<span class='pop-up' id='info' style='color:white'>" + data.msg2 + "</span>"
 
-              document.getElementById("score").innerHTML += "<span class='pop-up' id='success_msg' style='color:red'>" + data.msg + "</span>"
-              $("#success_msg").delay(2500).fadeOut();
+              $("#notif").delay(2500).fadeOut();
+              $("#painting").attr("src", data.url);
 
               if (data.obj == ""){
                   document.getElementById("obj_find").innerHTML = "No objects remaining in this painting!";
