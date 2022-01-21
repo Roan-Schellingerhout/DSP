@@ -100,6 +100,8 @@
               if (data.obj == ""){
                   document.getElementById("obj_find").innerHTML = "No objects remaining in this painting!";
                   $(me).css({"pointer-events": "none", "cursor": "default"});
+                  $("#no_object").css({"pointer-events": "none", "cursor": "default"});
+
               }else{
                   document.getElementById("object").innerHTML = data.obj;
                   document.getElementById("rem").innerHTML = "(" + data.rem + " objects remaining for this painting)"
@@ -115,7 +117,8 @@
 <script type=text/javascript>
   $(document).ready(function(){
       $("#no_object").on("click", function(event) {
-          
+          var me = this;
+
           $.ajax({
               type: "POST",
               url: "{{url_for('no_object')}}",
@@ -131,7 +134,9 @@
 
               if (data.obj == ""){
                   document.getElementById("obj_find").innerHTML = "No objects remaining in this painting!";
+                  $("a#painting_click").css({"pointer-events": "none", "cursor": "default"});
                   $(me).css({"pointer-events": "none", "cursor": "default"});
+
               }else{
                   document.getElementById("object").innerHTML = data.obj;
                   document.getElementById("rem").innerHTML = "(" + data.rem + " objects remaining for this painting)"
