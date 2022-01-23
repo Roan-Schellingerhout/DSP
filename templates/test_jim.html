@@ -111,7 +111,6 @@
               data: JSON.stringify({x: x, y: y, time: t})
           }).done(function(data) {
               t = 0;
-              done = false;
               document.getElementById("score").innerHTML = "Score: " + data.total_score;
 
               document.getElementById("score").innerHTML += "<span class='pop-up' id='success_msg' style='color:greenyellow'>" + data.msg + "</span>"
@@ -120,6 +119,7 @@
               $("#painting").attr("src", data.url);
 
               if (data.obj == ""){
+                  done = false;
                   document.getElementById("obj_find").innerHTML = "No objects remaining in this painting!";
                   $(me).css({"pointer-events": "none", "cursor": "default"});
                   $("#no_object").css({"pointer-events": "none", "cursor": "default"});
