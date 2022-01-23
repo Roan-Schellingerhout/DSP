@@ -34,10 +34,8 @@
   </div>
 </nav>
 
-<div class="row">
-
-
-  <div class="col-sm-8">
+<div class="row" style = "width: 100%; margin: 0px;">
+  <div class="col-sm-8" style= "padding: 0px;">
     <a style="pointer-events:auto; cursor:crosshair;" id="painting_click" href="#">
       <img id="painting" src={{url}} alt="painting" width={{width}} height={{height}} ismap>
     </a>
@@ -125,8 +123,6 @@
                   $(me).css({"pointer-events": "none", "cursor": "default"});
                   $("#no_object").css({"pointer-events": "none", "cursor": "default"});
                   $("#time").remove();
-
-
               }else{
                   document.getElementById("object").innerHTML = data.obj;
                   document.getElementById("rem").innerHTML = "(" + data.rem + " objects remaining for this painting)"
@@ -150,6 +146,7 @@
               contentType: 'application/json',
               data: {}
           }).done(function(data) {
+              t = 0;
               document.getElementById("score").innerHTML = "Score: " + data.total_score;
               document.getElementById("score").innerHTML += "<span class='pop-up' id='notif' style='color:red'>" + data.msg1 + "</span>"
               document.getElementById("score").innerHTML += "<span class='pop-up' id='info' style='color:white'>" + data.msg2 + "</span>"
@@ -158,10 +155,11 @@
               $("#painting").attr("src", data.url);
 
               if (data.obj == ""){
+                  done = false;
                   document.getElementById("obj_find").innerHTML = "No objects remaining in this painting!";
                   $("a#painting_click").css({"pointer-events": "none", "cursor": "default"});
                   $(me).css({"pointer-events": "none", "cursor": "default"});
-
+                  $("#time").remove();
               }else{
                   document.getElementById("object").innerHTML = data.obj;
                   document.getElementById("rem").innerHTML = "(" + data.rem + " objects remaining for this painting)"
