@@ -19,7 +19,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="#">Profile</a>
+          <a class="nav-link" href="/profile">Profile</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Browse</a>
@@ -29,8 +29,7 @@
         </li>    
       </ul>
     </div>
-    <p style="color: white;">usertype = {{user_type}}</p>
-    <p style="color: white;">username= {{username}}</p>
+    <p style="color: white;">Logged in as: {{username}}</p>
   </div>
 </nav>
 
@@ -57,9 +56,17 @@
         Score: 0 
       </div>
     </div>
+
+    <div class = "row" style="height: 100px;">
+      <div id = "time" class = "col-12 text-center">
+        Time spent: 0s
+      </div>    
+    </div>
+
+
      <br>
     <div class="row" style="height: 100px;">
-      <button onClick="window.location.reload();" type="button" class="btn btn-success"> Next Object and painting</button>
+      <button onClick="window.location.reload();" type="button" class="btn btn-success">Next Object and painting</button>
     </div>
      <br>
     <div class="row" style="height: 100px;">
@@ -70,6 +77,20 @@
 
 </div>
 <br>
+
+
+<script>
+  setInterval(Timer, 1000);
+  
+  var t = 0;
+  var done = true;
+
+  function Timer() {
+    t++;
+    if(done)
+        document.getElementById("time").innerHTML = "Time spent: " + t + "s";
+  }
+</script>
 
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -87,9 +108,10 @@
               type: "POST",
               url: "{{url_for('calculate_score')}}",
               contentType: 'application/json',
-              data: JSON.stringify({x: x, y: y, time: 0,
-              cache: false})
+              data: JSON.stringify({x: x, y: y, time: t})
           }).done(function(data) {
+              t = 0;
+              done = false;
               document.getElementById("score").innerHTML = "Score: " + data.total_score;
 
               document.getElementById("score").innerHTML += "<span class='pop-up' id='success_msg' style='color:greenyellow'>" + data.msg + "</span>"
@@ -101,6 +123,8 @@
                   document.getElementById("obj_find").innerHTML = "No objects remaining in this painting!";
                   $(me).css({"pointer-events": "none", "cursor": "default"});
                   $("#no_object").css({"pointer-events": "none", "cursor": "default"});
+                  $("#time").remove();
+
 
               }else{
                   document.getElementById("object").innerHTML = data.obj;
