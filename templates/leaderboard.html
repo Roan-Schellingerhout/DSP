@@ -13,10 +13,15 @@
     margin-right: auto;
     border-radius: 25px;
     padding: 10px;
-    width: 40%;
+    width: 60%;
     margin-top: 1em;
     text-align: center;
 }
+
+tr {
+    text-align: center !important;
+}
+
 </style>
 <body>
   
@@ -46,16 +51,12 @@
 
 <div class = "center bg-dark text-light">
 
-    Hey {{username}}! Here are your stats: <br><br>
-    
-    You've seen a total of {{unique}} paintings. Within those paintings, <br>
-    you've clicked on a total of unique {{objects}} objects. <br><br>
-    
-    You are currently an {{trust}} user! <br><br>
+Check the table below to see our top 10 users! You are currently ranked at #{{current_spot}} on the leaderboard! <br><br><br>
 
-    Total attempts: {{atts}}<br>
-    Average score: {{avg_score}}<br>
-    High score: {{high_score}}<br>
-    Total score: {{total_score}}<br>
+{% for table in tables %}
+    {{ table|safe }}
+{% endfor %}
 
 </div>
+</body>
+</html>
