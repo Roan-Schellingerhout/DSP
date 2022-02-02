@@ -219,6 +219,10 @@ var myModal = new bootstrap.Modal(document.getElementById("exampleModal"));
               if (data.obj == ""){
                   done = false;
                   document.getElementById("obj_find").innerHTML = "No objects remaining in this painting!";
+
+                  $("#exampleModal").modal('show')
+                  document.getElementById("reward").innerHTML = "Painter: " + data.metadata[0];
+
                   $("a#painting_click").css({"pointer-events": "none", "cursor": "default"});
                   $(me).css({"pointer-events": "none", "cursor": "default"});
                   $("#time").remove();
