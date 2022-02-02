@@ -23,7 +23,7 @@
           <a class="nav-link" href="/profile">Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/leaderboard">Leaderboard</a>
+          <a class="nav-link" href="/">Browse</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/logout">Logout</a>
@@ -87,7 +87,30 @@
   </div>
 
 </div>
-<br>
+
+
+<!-- Modal -->
+  <div class="modal fade" id="exampleModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Good Job!!!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>You found all the objects in <u>{{metadata[1]}}</u> by <u>{{metadata[0]}}</u> painted in <u>{{metadata[-1]}}</u>. <br><br> {{metadata[2]}} </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
 
 <script>
 $(document).ready(function(){
@@ -95,6 +118,22 @@ $(document).ready(function(){
 });
 </script>
 
+
+<!--- dIT IS TEMP --->
+<script>
+var myModal = document.getElementById('exampleModal')
+var myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', function () {
+  myInput.focus()
+})
+</script>
+
+<script>
+  
+var myModal = new bootstrap.Modal(document.getElementById("exampleModal"));
+
+</script>
 
 
 <script>
@@ -139,6 +178,10 @@ $(document).ready(function(){
               if (data.obj == ""){
                   done = false;
                   document.getElementById("obj_find").innerHTML = "No objects remaining in this painting!";
+
+                  $("#exampleModal").modal('show')
+
+                  document.getElementById("reward").innerHTML = "Painter: " + data.metadata[0];
                   $(me).css({"pointer-events": "none", "cursor": "default"});
                   $("#no_object").css({"pointer-events": "none", "cursor": "default"});
                   $("#time").remove();
