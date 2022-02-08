@@ -6,7 +6,7 @@ The rijksstudio is the online envioronment for the rijksmuseum. In this envioron
 
 The system contains many different sub systems (as seen below). The interactions with these systems are relativly simple as they mostly revolve around passing information between the frontend and the backend.
 
-![image](https://imgur.com/a/sBlRxOg)
+![image](https://i.imgur.com/X4mHjgK.png) 
 
 ## Demonstration
 
