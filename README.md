@@ -1,6 +1,6 @@
 # Data Systems Project: Rijksmuseum G3
 
-The rijksstudio is the online envioronment for the rijksmuseum. In this envioronment users can make collections and browse the collection of the rijksmuseum. There is a lot of information about the paintings present but not a lot of information on where objects are in the paintings. To better find this information we build a gamified system where users find objects in paintings.
+The rijksstudio is the online environment for the rijksmuseum. In this environment users can make collections and browse the collection of the rijksmuseum. There is a lot of information about the paintings present, but not on the location of objects that are in the paintings. To better locate these objects, we built a gamified system where users find objects in paintings.
 
 ## The overall system
 
